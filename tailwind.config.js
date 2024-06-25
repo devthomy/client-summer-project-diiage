@@ -1,7 +1,11 @@
 module.exports = {
-  content: ['./*.html', './*.{js,jsx,ts,tsx,vue}'],
+  content: ["./*.html", "./*.{js,jsx,ts,tsx,vue}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "custom-green": "#1DB954",
+      },
+    },
+    plugins: [],
   },
-  plugins: [],
-}
+};

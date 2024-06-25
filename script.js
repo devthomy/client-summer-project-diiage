@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("searchInput");
     const searchButton = document.getElementById("searchButton");
     const artistList = document.getElementById("artistList");
+    const artistCard = document.getElementById("artistCard");
+    const artistImage = document.getElementById("artistImage");
+    const artistName = document.getElementById("artistName");
+    const artistFans = document.getElementById("artistFans");
 
     searchButton.addEventListener("click", async function () {
         const query = searchInput.value.trim();
@@ -12,24 +16,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         searchInput.classList.remove("border-red-500");
 
+        artistCard.classList.add("hidden");
+
         const apiUrl = `https://192.168.1.39:7136/api/deezer/artist/${query}`;
         await fetchData(apiUrl, displayArtist);
-    });
-
-    artistList.addEventListener("click", function (event) {
-        if (event.target.classList.contains("album-cover")) {
-            const albumId = event.target.dataset.albumId;
-            const albumButton = event.target;
-            albumButton.textContent = "Chargement des titres...";
-            fetchTracks(albumId, albumButton);
-        }
     });
 
     async function fetchData(apiUrl, callback) {
         try {
             searchButton.disabled = true;
             searchButton.textContent = "Chargement...";
-            artistList.innerHTML = '<div class="flex justify-center"><div class="loader"></div></div>';
+            artistList.innerHTML = '<div class="flex justify-center"><div class="loader border-4 border-t-4 border-green-500 rounded-full w-12 h-12 animate-spin"></div></div>';
 
             const response = await fetch(apiUrl);
             if (!response.ok) {
@@ -47,60 +44,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayArtist(artist) {
+        if (!artist) {
+            artistCard.classList.add("hidden");
+            artistList.innerHTML = `<p class="text-gray-400">Aucun artiste trouvé.</p>`;
+            return;
+        }
+
+        // Display artist card
+        artistImage.src = artist.pictureMedium || 'default-artist-image-url';
+        artistName.textContent = artist.name;
+        artistCard.classList.remove("hidden");
+
         if (!artist.albums.length) {
-            artistList.innerHTML = `<p class="text-gray-600">Aucun album trouvé pour cet artiste.</p>`;
+            artistList.innerHTML = `<p class="text-gray-400">Aucun album trouvé pour cet artiste.</p>`;
             return;
         }
         artistList.innerHTML = artist.albums
             .map(
                 (album) => `
-                <div class="p-4 border border-gray-300 rounded-lg mb-4 animate-fade-in bg-white shadow">
-                    <div class="flex items-center mb-2 justify-between">
-                        <div class="flex items-center">
-                            <img src="${album.cover || "default-album-cover-url"}" alt="${album.title}" class="rounded w-16 h-16 object-cover mr-4 shadow-lg" />
-                            <span class="text-lg font-medium">${album.title}</span>
-                        </div>
-                        <button
-                            data-album-id="${album.id}"
-                            class="album-cover inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-purple-600"
-                        >
-                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
-                                Voir les titres
+                <div id="accordion-${album.id}" class="border border-gray-700 rounded-lg overflow-hidden">
+                    <h2 id="heading-${album.id}">
+                        <button type="button" class="accordion-button flex items-center justify-between w-full p-5 bg-gray-800 text-white font-medium text-left focus:outline-none" data-accordion-target="#body-${album.id}" aria-expanded="false" aria-controls="body-${album.id}">
+                            <span class="flex items-center">
+                                <img src="${album.cover || 'default-album-cover-url'}" alt="${album.title}" class="album-cover rounded w-16 h-16 object-cover mr-4" />
+                                ${album.title}
                             </span>
+                            <svg data-accordion-icon class="w-4 h-4 text-white transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
                         </button>
+                    </h2>
+                    <div id="body-${album.id}" class="hidden accordion-content p-5 bg-gray-700 text-gray-400 transition-max-height max-h-0" aria-labelledby="heading-${album.id}">
+                        <ul class="list-disc pl-5">
+                            ${album.tracks.map(track => `<li>${track.title}</li>`).join('')}
+                        </ul>
                     </div>
-                    <ul class="mt-2 ml-4 list-disc album-tracks" id="tracks-${album.id}"></ul>
                 </div>
             `
             )
-            .join("");
-    }
+            .join('');
 
-    async function fetchTracks(albumId, albumButton) {
-        const apiUrl = `https://192.168.1.39:7136/api/deezer/album/${albumId}/tracks`;
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error(`Échec de la récupération des titres.`);
-            }
-            const tracks = await response.json();
-            displayTracks(albumId, tracks);
-        } catch (error) {
-            console.error(error);
-            document.getElementById(`tracks-${albumId}`).innerHTML = `<p class="text-red-500">Erreur lors de la récupération des titres: ${error.message}</p>`;
-        } finally {
-            albumButton.textContent = "Voir les titres";
-        }
-    }
-
-    function displayTracks(albumId, tracks) {
-        const trackList = document.getElementById(`tracks-${albumId}`);
-        if (!tracks.length) {
-            trackList.innerHTML = `<p class="text-gray-600">Aucun titre trouvé pour cet album.</p>`;
-            return;
-        }
-        trackList.innerHTML = tracks
-            .map(track => `<li>${track.title}</li>`)
-            .join("");
+        artist.albums.forEach(album => {
+            const button = document.querySelector(`#heading-${album.id} button`);
+            const body = document.getElementById(`body-${album.id}`);
+            const icon = button.querySelector('svg');
+            button.addEventListener('click', () => {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', !isExpanded);
+                body.classList.toggle('hidden');
+                body.style.maxHeight = isExpanded ? '0px' : `${body.scrollHeight}px`;
+                icon.classList.toggle('rotate-180');
+            });
+        });
     }
 });
