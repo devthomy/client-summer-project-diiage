@@ -25,14 +25,13 @@
         .transition-max-height {
             transition: max-height 0.5s ease-in-out;
         }
-       
     </style>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="flex">
         <!-- Sidebar -->
         <div class="sidebar bg-gray-800 w-64 min-h-screen p-6">
-            <h1 class="text-3xl font-bold text-green-500 mb-8">Blind Test</h1>
+            <h1 class="text-3xl font-bold text-green-500 mb-8">Blindly</h1>
 
             <nav class="mt-10">
                 <a href="#" class="block text-gray-400 hover:text-white mb-2">Accueil</a>
@@ -43,11 +42,51 @@
 
         <!-- Main content -->
         <div class="content flex-1 p-6">
+            <div class="welcome-section mb-8 p-6 rounded-lg bg-gray-800 text-start">
+                <h2 class="text-2xl font-semibold text-green-500">Bienvenue sur Blindly</h2>
+                <p class="text-gray-400 mt-4">
+                    Utilisez la barre de recherche ci-dessus pour trouver des artistes
+                    et leurs albums. Vous pouvez également cliquer sur les artistes
+                    recommandés ci-dessous pour commencer.
+                </p>
+            </div>
+
+            <!-- Recommended Artists -->
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-2xl font-semibold">Informations sur l'artiste</h2>
+                <h2 class="text-2xl font-semibold border-b-2 border-green-500">Recommandation</h2>
+            </div>
+
+            <div id="recommendedArtists" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
+                
+                <!-- PNL -->
+                <div class="artist-card p-4 h-full rounded-lg bg-gradient-to-r from-green-500 to-green-700 cursor-pointer" data-artist-name="PNL">
+                    <img src="https://e-cdns-images.dzcdn.net/images/artist/9277fdce45b79945918c24f69cb6e8e3/250x250-000000-80-0-0.jpg" alt="PNL" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-xl font-bold text-white">PNL</h3>
+                </div>
+                <!-- Drake -->
+                <div class="artist-card p-4 rounded-lg bg-gradient-to-r from-green-500 to-green-700 cursor-pointer" data-artist-name="Drake">
+                    <img src="https://e-cdns-images.dzcdn.net/images/artist/5d2fa7f140a6bdc2c864c3465a61fc71/250x250-000000-80-0-0.jpg" alt="Drake" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-xl font-bold text-white">Drake</h3>
+                </div>
+                <!-- Avicii -->
+                <div class="artist-card p-4 rounded-lg bg-gradient-to-r from-green-500 to-green-700 cursor-pointer" data-artist-name="Avicii">
+                    <img src="https://e-cdns-images.dzcdn.net/images/artist/82e214b0cb39316f4a12a082fded54f6/250x250-000000-80-0-0.jpg" alt="Avicii" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-xl font-bold text-white">Avicii</h3>
+                </div>
+                <!-- Daft punk -->
+                <div class="artist-card p-4 rounded-lg bg-gradient-to-r from-green-500 to-green-700 cursor-pointer" data-artist-name="Avicii">
+                    <img src="https://e-cdns-images.dzcdn.net/images/artist/f2bc007e9133c946ac3c3907ddc5d2ea/250x250-000000-80-0-0.jpg" alt="Daft punk" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <h3 class="text-xl font-bold text-white">Daft Punk</h3>
+                </div>
+
+            </div>
+
+            <!-- Search and artist information -->
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-semibold border-b-2 border-green-500">Informations sur l'artiste</h2>
                 <div class="flex items-center space-x-4">
                     <input id="searchInput" type="search" placeholder="Rechercher un artiste par ID..." class="p-2.5 rounded-md border border-gray-700 bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-green-500 w-72" />
-                    <button id="searchButton" class="w-full py-2.5 bg-gradient-to-br from-green-500 to-green-700 text-gray-900 rounded-lg focus:ring-4 focus:outline-none focus:ring-green-500 hover:from-green-600 hover:to-green-700 transition-all duration-75">Rechercher</button>
+                    <button id="searchButton" class="w-full py-2.5 bg-gradient-to-br from-green-500 to-green-700 text-white font-bold rounded-lg focus:ring-4 focus:outline-none focus:ring-green-500 hover:from-green-600 hover:to-green-700 transition-all duration-75">Rechercher</button>
                 </div>
             </div>
 
