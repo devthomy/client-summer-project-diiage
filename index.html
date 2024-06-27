@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DIIAGE BLIND TEST - Accueil</title>
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
+        rel="stylesheet"
+    />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .hover-underline:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+<div class="min-h-screen flex flex-col justify-center items-center">
+    <h1 class="text-4xl font-bold text-green-500 mb-8">Blindly</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <a href="pages/search/track.html" class="block p-6 bg-gray-800 rounded-lg text-center hover-underline">
+            <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l-2 2m0 0l2 2m-2-2h6m3 6a2 2 0 100-4 2 2 0 000 4zm2 2.5a5.5 5.5 0 11-11 0V5a2 2 0 112 0v9.5a5.5 5.5 0 0111 0z"></path>
+            </svg>
+            <h2 class="text-xl font-semibold">Rechercher une Musique</h2>
+        </a>
+        <a href="pages/search/album.html" class="block p-6 bg-gray-800 rounded-lg text-center hover-underline">
+            <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m0 0l-3 3m3-3H9m-3 3h2a3 3 0 003-3V8a3 3 0 013-3h2"></path>
+            </svg>
+            <h2 class="text-xl font-semibold">Rechercher un Album</h2>
+        </a>
+        <a href="pages/search/artist.html" class="block p-6 bg-gray-800 rounded-lg text-center hover-underline">
+            <svg class="w-12 h-12 mx-auto mb-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A1.995 1.995 0 005 18h2a2 2 0 002-2v-3a2 2 0 00-2-2H5c-.276 0-.54.039-.798.116M7 10V6a2 2 0 00-2-2H3.5a1.5 1.5 0 00-1.415.953M5 4v.01M15.293 9.293a1 1 0 011.414 0L18 10.586l1.293-1.293a1 1 0 011.414 1.414l-1.293 1.293L20.707 13a1 1 0 01-1.414 1.414L18 12.414l-1.293 1.293a1 1 0 01-1.414-1.414l1.293-1.293-1.293-1.293a1 1 0 010-1.414z"></path>
+            </svg>
+            <h2 class="text-xl font-semibold">Rechercher un Artiste</h2>
+        </a>
+    </div>
+</div>
+</body>
+</html>
