@@ -28,5 +28,13 @@ Make sure you have the following installed:
 ### Installation
 
 1. Clone the repository
-   ```sh
-   git clone https://github.com/your-username/diiage-blind-test.git
+   ```sh git clone https://github.com/your-username/diiage-blind-test.git```
+
+2. Install the dependencies
+   ```npm install```
+   
+
+### Run
+
+1. Run the project
+   ```http-server --cors```
