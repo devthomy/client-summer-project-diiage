@@ -1,0 +1,22 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.content {
+  margin-left: 16rem;
+}
+
+.transition-max-height {
+  transition: max-height 0.5s ease-in-out;
+}
